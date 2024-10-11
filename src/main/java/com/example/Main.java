@@ -15,14 +15,18 @@ public class Main {
         BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
         DataOutputStream out = new DataOutputStream(s.getOutputStream());
         BufferedReader inTastiera = new BufferedReader(new InputStreamReader(System.in));
-
-        System.out.print("Inserisci il tuo messaggio: ");
-        String messaggio = inTastiera.readLine();
-
-        out.writeBytes(messaggio + "\n");
-        String stringaRicevuta = in.readLine();
-        System.out.println("La stringa ricevuta dal server: " + stringaRicevuta);
-
+        String messaggio;
+        do {
+            System.out.print("Inserisci il tuo messaggio: ");
+            messaggio = inTastiera.readLine();
+            if (messaggio.equals("exit")) {
+                out.writeBytes("!\n");
+                break;
+            }
+            out.writeBytes(messaggio + "\n");
+            String stringaRicevuta = in.readLine();
+            System.out.println("La stringa ricevuta dal server: " + stringaRicevuta);
+        } while (true);
 
         s.close();
     }
